@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35410.144 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationOfTransportServices", "AutomationOfTransportServices\AutomationOfTransportServices.csproj", "{056866BF-C93A-4652-8D72-8CC924558FF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationOfTransportServices.DataAccess", "AutomationOfTransportServices.DataAccess\AutomationOfTransportServices.DataAccess.csproj", "{1DC9A8FE-A4BE-44B3-8680-A6CEB885289F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{056866BF-C93A-4652-8D72-8CC924558FF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{056866BF-C93A-4652-8D72-8CC924558FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{056866BF-C93A-4652-8D72-8CC924558FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{056866BF-C93A-4652-8D72-8CC924558FF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DC9A8FE-A4BE-44B3-8680-A6CEB885289F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DC9A8FE-A4BE-44B3-8680-A6CEB885289F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DC9A8FE-A4BE-44B3-8680-A6CEB885289F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DC9A8FE-A4BE-44B3-8680-A6CEB885289F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
