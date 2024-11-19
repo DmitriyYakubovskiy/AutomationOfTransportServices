@@ -1,31 +1,44 @@
-﻿using AutomationOfTransportServices.DataAccess.Entities;
+﻿using AutomationOfTransportServices.DataAccess.Contexts;
+using AutomationOfTransportServices.DataAccess.Entities;
 
 namespace AutomationOfTransportServices.DataAccess.Repositories;
 
 public class VehicleRepository : IVehicleRepository
 {
+    private readonly TransportServicesDbContext dbContext;
+
+    public VehicleRepository(TransportServicesDbContext dbContext)
+    {
+        this.dbContext = dbContext;
+    }
+
     public void Create(VehicleEntity entity)
     {
-        throw new System.NotImplementedException();
+        dbContext.Vehicles.Add(entity);
+        dbContext.SaveChanges();
     }
 
     public void Delete(int id)
     {
-        throw new System.NotImplementedException();
+        var entity = GetById(id);
+        if (entity == null) return;
+        dbContext.Vehicles.Remove(entity);
+        dbContext.SaveChanges();
     }
 
     public VehicleEntity[] GetAll()
     {
-        throw new System.NotImplementedException();
+        return dbContext.Vehicles.ToArray();
     }
 
     public VehicleEntity GetById(int id)
     {
-        throw new System.NotImplementedException();
+        return dbContext.Vehicles.FirstOrDefault(x => x.Id == id)!;
     }
 
     public void Update(VehicleEntity entity)
     {
-        throw new System.NotImplementedException();
+        dbContext.Update(entity);
+        dbContext.SaveChanges();
     }
 }

@@ -47,7 +47,7 @@ namespace AutomationOfTransportServices.DataAccess.Contexts
                     entity.ToTable("strings_of_services");
                     entity.Property(e => e.Id).HasColumnName("id");
 
-                    entity.HasOne(d => d.Clinet).WithMany(p => p.Strings).HasForeignKey(d => d.ClientId)
+                    entity.HasOne(d => d.Client).WithMany(p => p.Strings).HasForeignKey(d => d.ClientId)
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("strings_of_services_client_id_fkey");
                     entity.HasOne(d => d.Driver).WithMany(p => p.Strings).HasForeignKey(d => d.DriverId)

@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AutomationOfTransportServices.Views;
+using AutomationOfTransportServices.Services;
 
 namespace AutomationOfTransportServices;
 
@@ -21,6 +23,17 @@ public class Program
                 services.AddSingleton<MainWindow>();
                 services.AddDbContext<TransportServicesDbContext>(options => options.UseNpgsql(connectionString));
                 services.AddScoped<IVehicleRepository, VehicleRepository>();
+                services.AddScoped<IClientRepository, ClientRepository>();
+                services.AddScoped<IDriverRepository, DriverRepository>();
+                services.AddScoped<ITypeOfServiceRepository, TypeOfServiceRepository>();
+                services.AddScoped<IStringOfServiceRepository, StringOfServiceRepository>();
+
+                services.AddScoped<IVehicleService, VehicleService>();
+                services.AddScoped<IClientService, ClientService>();
+                services.AddScoped<IDriverService, DriverService>();
+                services.AddScoped<ITypeOfServiceService, TypeOfServiceService>();
+                services.AddScoped<IStringOfServiceService, StringOfServiceService>();
+
                 services.AddAutoMapper(typeof(Program).Assembly);
             }).Build();
 
