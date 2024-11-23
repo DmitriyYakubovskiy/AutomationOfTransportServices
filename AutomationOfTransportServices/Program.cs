@@ -20,7 +20,7 @@ public class Program
             .ConfigureServices(services =>
             {
                 services.AddSingleton<App>();
-                services.AddSingleton<MainWindow>();
+                services.AddSingleton<MainView>();
                 services.AddDbContext<TransportServicesDbContext>(options => options.UseNpgsql(connectionString));
                 services.AddScoped<IVehicleRepository, VehicleRepository>();
                 services.AddScoped<IClientRepository, ClientRepository>();

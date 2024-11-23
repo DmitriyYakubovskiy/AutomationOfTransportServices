@@ -20,7 +20,7 @@ namespace AutomationOfTransportServices.DataAccess.Contexts
             {
                 modelBuilder.Entity<ClientEntity>(entity =>
                 {
-                    //entity.HasKey(e => e.Id).HasName("clients_pkey");
+                    entity.HasKey(e => e.Id).HasName("clients_pkey");
                     entity.ToTable("clients");
                     entity.Property(e => e.Id).HasColumnName("id");
                     entity.Property(e => e.Name)
@@ -33,7 +33,7 @@ namespace AutomationOfTransportServices.DataAccess.Contexts
 
                 modelBuilder.Entity<DriverEntity>(entity =>
                 {
-                    //entity.HasKey(e => e.Id).HasName("drivers_pkey");
+                    entity.HasKey(e => e.Id).HasName("drivers_pkey");
                     entity.ToTable("drivers");
                     entity.Property(e => e.Id).HasColumnName("id");
                     entity.Property(e => e.Name)
@@ -43,9 +43,17 @@ namespace AutomationOfTransportServices.DataAccess.Contexts
 
                 modelBuilder.Entity<StringOfServiceEntity>(entity =>
                 {
-                    //entity.HasKey(e => e.Id).HasName("strings_of_services_pkey");
+                    entity.HasKey(e => e.Id).HasName("strings_of_services_pkey");
                     entity.ToTable("strings_of_services");
                     entity.Property(e => e.Id).HasColumnName("id");
+
+                    entity.Property(e=>e.Number).HasColumnName("n");
+                    entity.Property(e => e.Date).HasColumnName("date");
+                    entity.Property(e => e.Distance).HasColumnName("distance");
+                    entity.Property(e => e.ClientId).HasColumnName("client_id");
+                    entity.Property(e => e.DriverId).HasColumnName("driver_id");
+                    entity.Property(e => e.TypeOfServiceId).HasColumnName("type_of_service_id");
+                    entity.Property(e => e.VehicleId).HasColumnName("vehicle_id");
 
                     entity.HasOne(d => d.Client).WithMany(p => p.Strings).HasForeignKey(d => d.ClientId)
                         .OnDelete(DeleteBehavior.ClientSetNull)
@@ -63,7 +71,7 @@ namespace AutomationOfTransportServices.DataAccess.Contexts
 
                 modelBuilder.Entity<TypeOfServiceEntity>(entity =>
                 {
-                    //entity.HasKey(e => e.Id).HasName("types_of_services_pkey");
+                    entity.HasKey(e => e.Id).HasName("types_of_services_pkey");
                     entity.ToTable("types_of_services");
                     entity.Property(e => e.Id).HasColumnName("id");
                     entity.Property(e => e.Name)
@@ -73,7 +81,7 @@ namespace AutomationOfTransportServices.DataAccess.Contexts
 
                 modelBuilder.Entity<VehicleEntity>(entity =>
                 {
-                    //entity.HasKey(e => e.Id).HasName("vehicle_pkey");
+                    entity.HasKey(e => e.Id).HasName("vehicle_pkey");
                     entity.ToTable("vehicles");
                     entity.Property(e => e.Id).HasColumnName("id");
                     entity.Property(e => e.Name)
