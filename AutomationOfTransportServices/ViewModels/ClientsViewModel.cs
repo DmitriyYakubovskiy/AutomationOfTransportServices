@@ -1,43 +1,42 @@
-﻿using AutomationOfTransportServices.Models;
+﻿using AutomationOfTransportServices.Collections;
+using AutomationOfTransportServices.Commands;
+using AutomationOfTransportServices.Models;
 using AutomationOfTransportServices.Services;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 
 namespace AutomationOfTransportServices.ViewModels;
 
 public class ClientsViewModel : INotifyPropertyChanged
 {
+    private ClientObservableCollection clients;
+    private Command addClientCommand;
     private readonly IClientService clientService;
-    private ObservableCollection<ClientModel> clients;
 
-    public ObservableCollection<ClientModel> Clients
-    {
-        get { return clients; }
-        set
-        {
-            clients = value;
-            OnPropertyChanged(nameof(Clients));
-        }
-    }
-
+    public ICommand AddClientCommand => addClientCommand;
+    public IReadOnlyCollection<ClientModel> Clients => clients.Clients;
     public event PropertyChangedEventHandler PropertyChanged;
 
     public ClientsViewModel(Window window, IClientService clientService)
     {
         this.clientService = clientService;
-        Clients = new ObservableCollection<ClientModel>();
-        LoadClients();
+        clients = new ClientObservableCollection(clientService);
+        clients.CollectionChanged += (_, e) =>
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                OnPropertyChanged(nameof(Clients));
+            }
+        };
+        addClientCommand = new DelegateCommand(_ => AddClient());
     }
 
-    private void LoadClients()
+    private void AddClient()
     {
-        var clientsArray = clientService.GetAll();
-        Clients.Clear();
-        foreach (var client in clientsArray)
-        {
-            Clients.Add(client);
-        }
+        clients.Add(new ClientModel { Name = "aaaa", NumberOfTelephone = "11111" });
     }
 
     protected void OnPropertyChanged(string propertyName)

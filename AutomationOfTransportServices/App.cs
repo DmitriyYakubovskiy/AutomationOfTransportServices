@@ -27,7 +27,14 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         mainWindow.DataContext = new MainViewModel(mainWindow, clientService);
+        mainWindow.Closed += MainWindow_Closed;
+
         mainWindow.Show();
         base.OnStartup(e);
+    }
+
+    private void MainWindow_Closed(object sender, EventArgs e)
+    {
+        this.Shutdown();
     }
 }

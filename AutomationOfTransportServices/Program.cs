@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AutomationOfTransportServices.Views;
 using AutomationOfTransportServices.Services;
+using System.Windows;
 
 namespace AutomationOfTransportServices;
 
@@ -38,6 +39,7 @@ public class Program
             }).Build();
 
         var app = host.Services.GetService<App>();
+        app.ShutdownMode = ShutdownMode.OnExplicitShutdown;
         app?.Run();
     }
 

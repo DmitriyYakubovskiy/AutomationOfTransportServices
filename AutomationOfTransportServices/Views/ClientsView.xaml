@@ -8,14 +8,27 @@
         Title="ClientsView" Height="450" Width="800"
         WindowStartupLocation="CenterOwner">
     <Grid>
-        <ListView ItemsSource="{Binding Clients}" Margin="10">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding Id}" />
-                    <GridViewColumn Header="ФИО" Width="200" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Телефон" Width="100" DisplayMemberBinding="{Binding NumberOfTelephone}" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" Grid.RowSpan="2" Grid.Row="0" Margin="10">
+            <ListView ItemsSource="{Binding Clients}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding Id}" />
+                        <GridViewColumn Header="ФИО" Width="200" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Телефон" Width="100" DisplayMemberBinding="{Binding NumberOfTelephone}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+
+        <Button Grid.Column="1" Grid.Row="0" Content="Добавить" Command="{Binding AddClientCommand}"/>
     </Grid>
 </Window>
