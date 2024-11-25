@@ -26,7 +26,7 @@ public class VehicleRepository : IVehicleRepository
         dbContext.SaveChanges();
     }
 
-    public VehicleEntity[] GetAll()
+    public VehicleEntity[] GetAll(string searchString = null!)
     {
         return dbContext.Vehicles.ToArray();
     }

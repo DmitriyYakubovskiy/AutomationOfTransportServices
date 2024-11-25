@@ -5,12 +5,12 @@ using AutomationOfTransportServices.Models;
 
 namespace AutomationOfTransportServices.Services;
 
-public class StringOfServiceService : IStringOfServiceService
+public class ServiceStringService : IServiceStringService
 {
     private readonly IStringOfServiceRepository stringOfServiceRepository;
     private readonly IMapper mapper;
 
-    public StringOfServiceService(IStringOfServiceRepository stringOfServiceRepository, IMapper mapper)
+    public ServiceStringService(IStringOfServiceRepository stringOfServiceRepository, IMapper mapper)
     {
         this.stringOfServiceRepository = stringOfServiceRepository;
         this.mapper = mapper;

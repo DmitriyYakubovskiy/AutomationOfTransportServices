@@ -26,9 +26,9 @@ public class ClientService : IClientService
         clientRepository.Delete(id);
     }
 
-    public ClientModel[] GetAll()
+    public ClientModel[] GetAll(string searchString = null!)
     {
-        return mapper.Map<ClientModel[]>(clientRepository.GetAll());
+        return mapper.Map<ClientModel[]>(clientRepository.GetAll(searchString));
     }
 
     public ClientModel GetById(int id)

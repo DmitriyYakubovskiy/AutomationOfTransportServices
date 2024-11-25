@@ -26,7 +26,7 @@ public class DriverRepository : IDriverRepository
         dbContext.SaveChanges();
     }
 
-    public DriverEntity[] GetAll()
+    public DriverEntity[] GetAll(string searchString = null!)
     {
         return dbContext.Drivers.ToArray();
     }

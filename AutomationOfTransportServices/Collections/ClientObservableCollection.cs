@@ -45,6 +45,28 @@ public class ClientObservableCollection : INotifyCollectionChanged
         Init();
     }
 
+    public void Filter(string searchString)
+    {
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        var allClients = clientService.GetAll();
+
+        if (string.IsNullOrWhiteSpace(searchString))
+        {
+            clients = new ObservableCollection<ClientModel>(allClients);
+        }
+        else
+        {
+            var filteredClients = allClients
+                .Where(client => client.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                 client.NumberOfTelephone.Contains(searchString)).ToList();
+
+            clients = new ObservableCollection<ClientModel>(filteredClients);
+        }
+        OnPropertyChanged(NotifyCollectionChangedAction.Add, new[] { clients });
+        stopwatch.Stop();
+        //MessageBox.Show(stopwatch.ElapsedMilliseconds.ToString());
+    }
+
     private void Init()
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -53,7 +75,6 @@ public class ClientObservableCollection : INotifyCollectionChanged
         OnPropertyChanged(NotifyCollectionChangedAction.Add, new[] { clients });
 
         stopwatch.Stop();
-        MessageBox.Show($"Время выполнения: {stopwatch.ElapsedMilliseconds} мс");
     }
 
     private void OnPropertyChanged(NotifyCollectionChangedAction action, IList changedItems)

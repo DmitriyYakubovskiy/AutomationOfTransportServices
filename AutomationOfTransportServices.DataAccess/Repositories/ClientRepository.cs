@@ -26,9 +26,10 @@ public class ClientRepository : IClientRepository
         dbContext.SaveChanges();
     }
 
-    public ClientEntity[] GetAll()
+    public ClientEntity[] GetAll(string searchString = null!)
     {
-        return dbContext.Clients.ToArray();
+        if(searchString== null) return dbContext.Clients.ToArray();
+        return dbContext.Clients.Where(client => client.Name.Contains(searchString) || client.NumberOfTelephone.Contains(searchString)).ToArray();
     }
 
     public ClientEntity GetById(int id)

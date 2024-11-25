@@ -26,7 +26,7 @@ public class TypeOfServiceRepository : ITypeOfServiceRepository
         dbContext.SaveChanges();
     }
 
-    public TypeOfServiceEntity[] GetAll()
+    public TypeOfServiceEntity[] GetAll(string searchString = null!)
     {
         return dbContext.TypesOfServices.ToArray();
     }

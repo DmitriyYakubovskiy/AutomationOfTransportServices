@@ -4,7 +4,7 @@ namespace AutomationOfTransportServices.DataAccess.Repositories;
 
 public interface IVehicleRepository
 {
-    VehicleEntity[] GetAll();
+    VehicleEntity[] GetAll(string searchString = null!);
     VehicleEntity GetById(int id);
     void Create(VehicleEntity entity);
     void Update(VehicleEntity entity);

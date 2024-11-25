@@ -4,7 +4,7 @@ namespace AutomationOfTransportServices.Services;
 
 public interface IClientService
 {
-    ClientModel[] GetAll();
+    ClientModel[] GetAll(string searchString = null!);
     ClientModel GetById(int id);
     void Create(ClientModel model);
     void Update(ClientModel model);

@@ -4,7 +4,7 @@ namespace AutomationOfTransportServices.DataAccess.Repositories;
 
 public interface IClientRepository
 {
-    ClientEntity[] GetAll();
+    ClientEntity[] GetAll(string searchString = null!);
     ClientEntity GetById(int id);
     void Create(ClientEntity entity);
     void Update(ClientEntity entity);

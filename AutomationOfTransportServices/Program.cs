@@ -32,8 +32,8 @@ public class Program
                 services.AddScoped<IVehicleService, VehicleService>();
                 services.AddScoped<IClientService, ClientService>();
                 services.AddScoped<IDriverService, DriverService>();
-                services.AddScoped<ITypeOfServiceService, TypeOfServiceService>();
-                services.AddScoped<IStringOfServiceService, StringOfServiceService>();
+                services.AddScoped<IServiceTypeService, ServiceTypeService>();
+                services.AddScoped<IServiceStringService, ServiceStringService>();
 
                 services.AddAutoMapper(typeof(Program).Assembly);
             }).Build();

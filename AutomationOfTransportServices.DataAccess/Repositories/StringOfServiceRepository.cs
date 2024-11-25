@@ -26,7 +26,7 @@ public class StringOfServiceRepository : IStringOfServiceRepository
         dbContext.SaveChanges();
     }
 
-    public StringOfServiceEntity[] GetAll()
+    public StringOfServiceEntity[] GetAll(string searchString = null!)
     {
         return dbContext.Strings.ToArray();
     }

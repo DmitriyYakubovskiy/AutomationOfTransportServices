@@ -2,7 +2,7 @@ using AutomationOfTransportServices.Models;
 
 namespace AutomationOfTransportServices.Services;
 
-public interface ITypeOfServiceService
+public interface IServiceTypeService
 {
     TypeOfServiceModel[] GetAll();
     TypeOfServiceModel GetById(int id);
