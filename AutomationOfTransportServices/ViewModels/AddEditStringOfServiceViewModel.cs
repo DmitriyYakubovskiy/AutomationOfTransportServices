@@ -1,4 +1,4 @@
-﻿using AutomationOfTransportServices.DataAccess.Repositories;
+﻿using AutomationOfTransportServices.DataAccess.Helpers;
 using AutomationOfTransportServices.Models;
 using AutomationOfTransportServices.Services;
 using System.ComponentModel;
@@ -29,7 +29,7 @@ public class AddEditStringOfServiceViewModel : INotifyPropertyChanged
 
     public List<ClientModel> Clients { get; set; }
     public List<VehicleModel> Vehicles { get; set; }
-    public List<TypeOfServiceModel> ServiceTypes { get; set; }
+    public List<TypeOfServiceModel> Types { get; set; }
     public List<DriverModel> Drivers { get; set; }
 
     public ICommand SaveCommand { get; }
@@ -60,10 +60,19 @@ public class AddEditStringOfServiceViewModel : INotifyPropertyChanged
         StringOfService = existingString ?? new StringOfServiceModel();
 
         this.stringService=stringService;
-        ServiceTypes = typeService.GetAll().ToList();
+        Types = typeService.GetAll().ToList();
         Drivers = driverService.GetAll().ToList();
         Vehicles = vehicleService.GetAll().ToList();
         Clients = clientService.GetAll().ToList();
+
+        StringOfService.DateTime=DateTime.Now;
+
+        if (existingString != null)
+        {
+            if (existingString.Driver != null) StringOfService.Driver = Drivers.Where(x => x.Id == existingString.Driver.Id).FirstOrDefault()!;
+            if (existingString.TypeOfService != null) StringOfService.TypeOfService = Types.Where(x => x.Id == existingString.TypeOfService.Id).FirstOrDefault()!;
+            if (existingString.Vehicle!=null) StringOfService.Vehicle = Vehicles.Where(x => x.Id == existingString.Vehicle.Id).FirstOrDefault()!;
+        }
 
         if (client != null)
         {
@@ -81,13 +90,12 @@ public class AddEditStringOfServiceViewModel : INotifyPropertyChanged
 
     private void Save()
     {
-        if (stringOfService != null)
-        {
-            int N = stringService.GetAll().Where(x => x.ClientId == stringOfService.ClientId).Max(x=>x.Number)+1;
-            stringOfService.Number = N;
-            stringService.Create(StringOfService);
-        }
-        thisWindow.DialogResult = true;
+        if (StringOfService.Client == null) MessageBox.Show("Выберите клиента!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        else if (StringOfService.Driver == null) MessageBox.Show("Выберите водителя!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        else if (StringOfService.TypeOfService == null) MessageBox.Show("Выберите тип услуги!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        else if (StringOfService.Vehicle == null) MessageBox.Show("Выберите автомобиль!","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        else if (StringOfService?.Distance <= 0) MessageBox.Show("Расстояние не может быть ниже 1!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        else thisWindow.DialogResult = true;
     }
 
     private void Cancel()

@@ -3,6 +3,7 @@ using AutomationOfTransportServices.Commands;
 using AutomationOfTransportServices.Models;
 using AutomationOfTransportServices.Services;
 using AutomationOfTransportServices.Views;
+using Microsoft.VisualBasic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -26,6 +27,7 @@ public class ClientsViewModel : INotifyPropertyChanged
     private IDriverService driverService;
     private IServiceTypeService typeService;
     private IVehicleService vehicleService;
+    private string executionTime;
     private string searchText;
 
     public ICommand AddClientCommand => addClientCommand;
@@ -36,6 +38,19 @@ public class ClientsViewModel : INotifyPropertyChanged
     public ICommand RefreshClientsCommand => refreshClientsCommand; 
 
     public ObservableCollection<ClientModel> Clients => clients.Clients;
+
+    public string ExecutionTime
+    {
+        get => executionTime + " ms";
+        set
+        {
+            if (executionTime != value)
+            {
+                executionTime = value;
+                OnPropertyChanged(nameof(ExecutionTime));
+            }
+        }
+    }
 
     public string SearchText
     {
@@ -66,6 +81,11 @@ public class ClientsViewModel : INotifyPropertyChanged
                 OnPropertyChanged(nameof(Clients));
             }
         };
+        clients.ExecutionTimeUpdated += (newExecutionTime) =>
+        {
+            ExecutionTime = newExecutionTime.ToString();
+        };
+        ExecutionTime = clients.ExecutionTimeLastCommand.ToString();
 
         addClientCommand = new DelegateCommand(_ => AddClient());
         editClientCommand = new GenericCommand<ClientModel>(client => EditClient(client), client => client != null);
@@ -82,6 +102,7 @@ public class ClientsViewModel : INotifyPropertyChanged
 
     private void Refresh()
     {
+        SearchText = "";
         clients.Refresh();
     }
 
@@ -94,10 +115,7 @@ public class ClientsViewModel : INotifyPropertyChanged
         if (window.ShowDialog() == true)
         {
             var newClient = clientDetailsViewModel.Client;
-            if (newClient != null)
-            {
-                clients.Add(newClient);
-            }
+            if (newClient != null) clients.Add(newClient);
         }
     }
 
@@ -112,10 +130,7 @@ public class ClientsViewModel : INotifyPropertyChanged
             if (window.ShowDialog() == true)
             {
                 var newClient = clientDetailsViewModel.Client;
-                if (newClient != null)
-                {
-                    clients.Update(newClient);
-                }
+                if (newClient != null) clients.Update(newClient);
             }
         }
     }
@@ -123,7 +138,7 @@ public class ClientsViewModel : INotifyPropertyChanged
     private void DeleteClient(ClientModel client)
     {
         if (client == null) return;
-        clients.Delete(client.Id);
+        if (MessageBox.Show("Вы уверены, что хотите удалить этого клиента?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) clients.Delete(client.Id);
     }
 
     private void ShowDocument(ClientModel client)
@@ -131,7 +146,7 @@ public class ClientsViewModel : INotifyPropertyChanged
         Window window = new DocumentView(thisWindow);
         DocumentViewModel viewModel = new DocumentViewModel(window, clientService, stringService, driverService, typeService, vehicleService, client.Id);
         window.DataContext = viewModel;
-        window.ShowDialog();
+        window.Show();
     }
 
     protected void OnPropertyChanged(string propertyName)

@@ -42,8 +42,12 @@ public class ServiceStringService : IServiceStringService
         var oldEntity = stringOfServiceRepository.GetById(model.Id);
         if (oldEntity == null) return;
         oldEntity.Id = model.Id;
-        //oldEntity.Name = model.Name;
-        //oldEntity.NumberOfTelephone = model.NumberOfTelephone;
+        oldEntity.Date = model.Date;
+        oldEntity.Distance = model.Distance;
+        oldEntity.ClientId = model.ClientId;
+        oldEntity.DriverId= model.DriverId; 
+        oldEntity.TypeOfServiceId = model.TypeOfServiceId;
+        oldEntity.VehicleId = model.VehicleId;
 
         stringOfServiceRepository.Update(oldEntity);
     }

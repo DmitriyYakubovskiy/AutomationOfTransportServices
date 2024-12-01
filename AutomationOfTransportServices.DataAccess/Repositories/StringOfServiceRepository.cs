@@ -15,6 +15,8 @@ public class StringOfServiceRepository : IStringOfServiceRepository
 
     public void Create(StringOfServiceEntity entity)
     {
+        int N = GetAll().Where(x => x.ClientId == entity.ClientId).Select(x => x.Number).DefaultIfEmpty(0).Max() + 1;
+        entity.Number = N;
         dbContext.Strings.Add(entity);
         dbContext.SaveChanges();
     }
@@ -29,7 +31,7 @@ public class StringOfServiceRepository : IStringOfServiceRepository
 
     public StringOfServiceEntity[] GetAll(string searchString = null!)
     {
-        return dbContext.Strings.ToArray();
+        return dbContext.Strings.Include(x => x.Client).Include(x => x.Driver).Include(x => x.TypeOfService).Include(x => x.Vehicle).ToArray();
     }
 
     public StringOfServiceEntity GetById(int id)

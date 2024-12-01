@@ -1,4 +1,5 @@
-﻿using AutomationOfTransportServices.Models;
+﻿using AutomationOfTransportServices.DataAccess.Helpers;
+using AutomationOfTransportServices.Models;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
@@ -36,7 +37,9 @@ public class AddEditClientViewModel : INotifyPropertyChanged
 
     private void Save()
     {
-        thisWindow.DialogResult = true;
+        if (String.IsNullOrEmpty(Client.Name?.Trim()) || Client?.Name.Length > EntityRestrictions.clientNameLength) MessageBox.Show($"Неверная длина имени!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        else if (String.IsNullOrEmpty(Client.NumberOfTelephone?.Trim()) || Client?.NumberOfTelephone?.Trim().Length != EntityRestrictions.clientTelephoneLength) MessageBox.Show($"Неверная длина телефона! Длина должна быть {EntityRestrictions.clientTelephoneLength} символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        else thisWindow.DialogResult = true;
     }
 
     private void Cancel()

@@ -10,7 +10,7 @@ public class MainViewModel
 {
     private Command openClientsCommand;
     private Command openDriversCommand;
-    private Command openStringsOfServiceCommand;
+    private Command openStringsOfServicesCommand;
     private Command openTypesOfServicesCommand;
     private Command openVehiclesCommand;
 
@@ -23,7 +23,7 @@ public class MainViewModel
 
     public ICommand OpenClientsCommand => openClientsCommand;
     public ICommand OpenDriversCommand => openDriversCommand;
-    public ICommand OpenStringsOfServiceCommand => openStringsOfServiceCommand;
+    public ICommand OpenStringsOfServicesCommand => openStringsOfServicesCommand;
     public ICommand OpenTypesOfServicesCommand => openTypesOfServicesCommand;
     public ICommand OpenVehiclesCommand => openVehiclesCommand;
 
@@ -40,7 +40,7 @@ public class MainViewModel
 
         openClientsCommand = new DelegateCommand(_ => OpenClients());
         openDriversCommand = new DelegateCommand(_ => OpenDrivers());
-        openStringsOfServiceCommand = new DelegateCommand(_ => OpenStringsOfServices());
+        openStringsOfServicesCommand = new DelegateCommand(_ => OpenStringsOfServices());
         openTypesOfServicesCommand = new DelegateCommand(_ => OpenTypesOfServices());
         openVehiclesCommand = new DelegateCommand(_ => OpenVehicles());
     }
@@ -49,7 +49,7 @@ public class MainViewModel
     {
         var window = new ClientsView(thisWindow);
         window.DataContext = new ClientsViewModel(window, clientService, stringService, driverService, typeOfServiceService, vehicleService);
-        window.ShowDialog();
+        window.Show();
     }
 
     private void OpenDrivers()
@@ -62,7 +62,7 @@ public class MainViewModel
     private void OpenStringsOfServices()
     {
         var window = new StringsOfServicesView(thisWindow);
-        window.DataContext = new StringsOfServicesViewModel(window, stringService);
+        window.DataContext = new StringsOfServicesViewModel(window, clientService, stringService, driverService, typeOfServiceService, vehicleService);
         window.Show();
     }
 

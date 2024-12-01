@@ -23,6 +23,11 @@ public class VehicleRepository : IVehicleRepository
     {
         var entity = GetById(id);
         if (entity == null) return;
+        var strings = dbContext.Strings.Where(x => x.VehicleId == id).ToList();
+        foreach (var @string in strings)
+        {
+            @string.VehicleId = null!;
+        }
         dbContext.Vehicles.Remove(entity);
         dbContext.SaveChanges();
     }

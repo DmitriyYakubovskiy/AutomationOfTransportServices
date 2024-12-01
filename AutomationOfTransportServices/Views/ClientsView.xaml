@@ -23,7 +23,8 @@
             <DataGrid ItemsSource="{Binding Clients}" 
               AutoGenerateColumns="False" 
               Name="ClientsDataGrid" 
-              CanUserAddRows="False">
+              CanUserAddRows="False"
+              IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
                     <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="150"/>
@@ -62,5 +63,8 @@
                 Width="100"
                     Margin="5,0,0,0"/>
         </StackPanel>
+
+        <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10"
+                   Text="{Binding ExecutionTime}"/>
     </Grid>
 </Window>

@@ -23,6 +23,11 @@ public class DriverRepository : IDriverRepository
     {
         var entity = GetById(id);
         if (entity == null) return;
+        var strings = dbContext.Strings.Where(x => x.DriverId == id).ToList();
+        foreach (var @string in strings)
+        {
+            @string.DriverId = null!;
+        }
         dbContext.Drivers.Remove(entity);
         dbContext.SaveChanges();
     }

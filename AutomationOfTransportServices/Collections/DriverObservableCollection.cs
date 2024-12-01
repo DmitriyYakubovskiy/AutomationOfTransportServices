@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Windows;
 
 namespace AutomationOfTransportServices.Collections;
 
@@ -15,6 +14,8 @@ public class DriverObservableCollection : INotifyCollectionChanged
 
     public ObservableCollection<DriverModel> Drivers => drivers;
     public event NotifyCollectionChangedEventHandler? CollectionChanged;
+    public event Action<long> ExecutionTimeUpdated;
+    public long ExecutionTimeLastCommand { get; private set; } = 0;
 
     public DriverObservableCollection(IDriverService driverService)
     {
@@ -45,6 +46,33 @@ public class DriverObservableCollection : INotifyCollectionChanged
         Init();
     }
 
+    public void Refresh()
+    {
+        Init();
+    }
+
+    public void Filter(string searchString)
+    {
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        var allDrivers = driverService.GetAll();
+
+        if (string.IsNullOrWhiteSpace(searchString))
+        {
+            drivers = new ObservableCollection<DriverModel>(allDrivers);
+        }
+        else
+        {
+            var filteredDrivers = allDrivers
+                .Where(x => x.Id.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) || x.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            drivers = new ObservableCollection<DriverModel>(filteredDrivers);
+        }
+        OnPropertyChanged(NotifyCollectionChangedAction.Add, new[] { drivers });
+        stopwatch.Stop();
+        ExecutionTimeLastCommand = stopwatch.ElapsedMilliseconds;
+        ExecutionTimeUpdated?.Invoke(ExecutionTimeLastCommand);
+    }
+
     private void Init()
     {
         Stopwatch stopwatch = Stopwatch.StartNew();
@@ -53,6 +81,8 @@ public class DriverObservableCollection : INotifyCollectionChanged
         OnPropertyChanged(NotifyCollectionChangedAction.Add, new[] { drivers });
 
         stopwatch.Stop();
+        ExecutionTimeLastCommand = stopwatch.ElapsedMilliseconds;
+        ExecutionTimeUpdated?.Invoke(ExecutionTimeLastCommand);
     }
 
     private void OnPropertyChanged(NotifyCollectionChangedAction action, IList changedItems)

@@ -15,10 +15,10 @@
                    Margin="10" />
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <Button Content="Клиенты" Width="200" Margin="5" Command="{Binding OpenClientsCommand}"  />
-            <Button Content="Машины" Width="200" Margin="5" Command="{Binding OpenClientsCommand}" />
-            <Button Content="Водители" Width="200" Margin="5" Command="{Binding OpenClientsCommand}" />
-            <Button Content="Услуги" Width="200" Margin="5" Command="{Binding OpenClientsCommand}" />
-            <Button Content="Типы Услуг" Width="200" Margin="5" Command="{Binding OpenClientsCommand}" />
+            <Button Content="Машины" Width="200" Margin="5" Command="{Binding OpenVehiclesCommand}" />
+            <Button Content="Водители" Width="200" Margin="5" Command="{Binding OpenDriversCommand}" />
+            <Button Content="Услуги" Width="200" Margin="5" Command="{Binding OpenStringsOfServicesCommand}" />
+            <Button Content="Типы Услуг" Width="200" Margin="5" Command="{Binding OpenTypesOfServicesCommand}" />
         </StackPanel>
     </Grid>
 </Window>

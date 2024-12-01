@@ -31,10 +31,10 @@
 
             <TextBlock FontWeight="Bold" FontSize="14" Text="Услуги:" Margin="0,10,0,0"/>
             <ScrollViewer>
-                <DataGrid ItemsSource="{Binding Services}" AutoGenerateColumns="False" CanUserAddRows="False" Height="350">
+                <DataGrid ItemsSource="{Binding Strings}" AutoGenerateColumns="False" CanUserAddRows="False" Height="350" IsReadOnly="True">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="#" Binding="{Binding Number}"/>
-                        <DataGridTextColumn Header="Дата" Binding="{Binding Date}"/>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding DateString}"/>
                         <DataGridTextColumn Header="Код типа услуги" Binding="{Binding TypeOfServiceId}"/>
                         <DataGridTextColumn Header="Тип услуги" Binding="{Binding TypeOfService.Name}"/>
                         <DataGridTextColumn Header="Расстояние в км" Binding="{Binding Distance}"/>
@@ -42,7 +42,7 @@
                         <DataGridTextColumn Header="Имя автомобиля" Binding="{Binding Vehicle.Name}"/>
                         <DataGridTextColumn Header="Цена за 1 км" Binding="{Binding Vehicle.PriceOfKm}"/>
                         <DataGridTextColumn Header="Код водителя" Binding="{Binding DriverId}"/>
-                        <DataGridTextColumn Header="Имя Водителя" Binding="{Binding Driver.Name}"/>
+                        <DataGridTextColumn Header="Имя водителя" Binding="{Binding Driver.Name}"/>
                         <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost}"/>
                         <DataGridTemplateColumn Header="Действия" Width="120">
                             <DataGridTemplateColumn.CellTemplate>

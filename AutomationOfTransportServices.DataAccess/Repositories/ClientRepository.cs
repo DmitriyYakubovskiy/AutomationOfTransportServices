@@ -1,6 +1,7 @@
 using AutomationOfTransportServices.DataAccess.Contexts;
 using AutomationOfTransportServices.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Windows;
 
 namespace AutomationOfTransportServices.DataAccess.Repositories;
 
@@ -23,6 +24,11 @@ public class ClientRepository : IClientRepository
     {
         var entity = GetById(id);
         if (entity == null) return;
+        var strings = dbContext.Strings.Where(x => x.ClientId == id).ToList();
+        foreach (var @string in strings)
+        {
+            @string.ClientId = null!;
+        }
         dbContext.Clients.Remove(entity);
         dbContext.SaveChanges();
     }

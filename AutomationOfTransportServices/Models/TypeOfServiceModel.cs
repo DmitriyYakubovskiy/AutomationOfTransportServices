@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace AutomationOfTransportServices.Models;
 
-public class TypeOfServiceModel : INotifyPropertyChanged
+public class TypeOfServiceModel : INotifyPropertyChanged, ICloneable
 {
     private int id;
     private string name = null!;
@@ -35,6 +35,15 @@ public class TypeOfServiceModel : INotifyPropertyChanged
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    public object Clone()
+    {
+        return new TypeOfServiceModel
+        {
+            Id = this.Id,
+            Name = this.Name
+        };
+    }
 
     protected void OnPropertyChanged(string propertyName)
     {

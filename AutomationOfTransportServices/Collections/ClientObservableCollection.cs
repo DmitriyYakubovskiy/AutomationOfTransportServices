@@ -14,6 +14,8 @@ public class ClientObservableCollection : INotifyCollectionChanged
 
     public ObservableCollection<ClientModel> Clients => clients;
     public event NotifyCollectionChangedEventHandler? CollectionChanged;
+    public event Action<long> ExecutionTimeUpdated;
+    public long ExecutionTimeLastCommand { get; private set; } = 0;
 
     public ClientObservableCollection(IClientService clientService)
     {
@@ -60,15 +62,16 @@ public class ClientObservableCollection : INotifyCollectionChanged
         }
         else
         {
-            var filteredClients = allClients
-                .Where(client => client.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
-                                 client.NumberOfTelephone.Contains(searchString)).ToList();
+            var filteredClients = allClients.Where(x => x.Id.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                x.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase) ||
+                                 x.NumberOfTelephone.Contains(searchString)).ToList();
 
             clients = new ObservableCollection<ClientModel>(filteredClients);
         }
         OnPropertyChanged(NotifyCollectionChangedAction.Add, new[] { clients });
         stopwatch.Stop();
-        //MessageBox.Show(stopwatch.ElapsedMilliseconds.ToString());
+        ExecutionTimeLastCommand = stopwatch.ElapsedMilliseconds;
+        ExecutionTimeUpdated?.Invoke(ExecutionTimeLastCommand);
     }
 
     private void Init()
@@ -79,6 +82,8 @@ public class ClientObservableCollection : INotifyCollectionChanged
         OnPropertyChanged(NotifyCollectionChangedAction.Add, new[] { clients });
 
         stopwatch.Stop();
+        ExecutionTimeLastCommand = stopwatch.ElapsedMilliseconds;
+        ExecutionTimeUpdated?.Invoke(ExecutionTimeLastCommand);
     }
 
     private void OnPropertyChanged(NotifyCollectionChangedAction action, IList changedItems)

@@ -2,6 +2,7 @@
 using AutomationOfTransportServices.Models;
 using AutomationOfTransportServices.Services;
 using AutomationOfTransportServices.Views;
+using Microsoft.VisualBasic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
@@ -35,11 +36,11 @@ public class DocumentViewModel : INotifyPropertyChanged
         {
             client = value;
             OnPropertyChanged(nameof(Client));
-            OnPropertyChanged(nameof(Services));
+            OnPropertyChanged(nameof(Strings));
         }
     }
 
-    public List<StringOfServiceModel> Services => Client.Strings;
+    public List<StringOfServiceModel> Strings => Client.Strings;
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -64,7 +65,11 @@ public class DocumentViewModel : INotifyPropertyChanged
         var window = new AddEditStringOfServiceView(thisWindow);
         var viewModel=new AddEditStringOfServiceViewModel(window, clientService, stringService, driverService, typeService, vehicleService, client);  
         window.DataContext = viewModel;
-        if (window.ShowDialog() == true) Refresh();
+        if (window.ShowDialog() == true)
+        {
+            if (viewModel.StringOfService != null) stringService.Create(viewModel.StringOfService);
+            Refresh();
+        }
     }
 
     private void Refresh()
@@ -81,6 +86,16 @@ public class DocumentViewModel : INotifyPropertyChanged
 
     private void EditStringOfService(StringOfServiceModel model)
     {
+        if (model == null) return ;
+        var window = new AddEditStringOfServiceView(thisWindow);
+        var stringDetailsViewModel = new AddEditStringOfServiceViewModel(window, clientService, stringService, driverService, typeService, vehicleService, model.Client.Clone() as ClientModel, model.Clone() as StringOfServiceModel);
+        window.DataContext = stringDetailsViewModel;
+
+        if (window.ShowDialog() == true)
+        {
+            if (stringDetailsViewModel.StringOfService != null) stringService.Update(stringDetailsViewModel.StringOfService);
+            Refresh();
+        }
     }
 
     protected void OnPropertyChanged(string propertyName)

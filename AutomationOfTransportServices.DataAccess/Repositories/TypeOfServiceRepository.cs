@@ -22,6 +22,11 @@ public class TypeOfServiceRepository : ITypeOfServiceRepository
     {
         var entity = GetById(id);
         if (entity == null) return;
+        var strings = dbContext.Strings.Where(x => x.TypeOfServiceId == id).ToList();
+        foreach (var @string in strings)
+        {
+            @string.TypeOfServiceId = null!;
+        }
         dbContext.TypesOfServices.Remove(entity);
         dbContext.SaveChanges();
     }

@@ -7,11 +7,13 @@
         <StackPanel>
             <TextBlock Text="ФИО:" FontWeight="Bold" />
             <TextBox Text="{Binding Client.Name, UpdateSourceTrigger=PropertyChanged}" 
-                     Margin="0,0,0,10" />
+                     Margin="0,0,0,10"
+                     MaxLength="20"/>
 
             <TextBlock Text="Телефон:" FontWeight="Bold" />
             <TextBox Text="{Binding Client.NumberOfTelephone, UpdateSourceTrigger=PropertyChanged}" 
-                     Margin="0,0,0,10" />
+                     Margin="0,0,0,10" 
+                     MaxLength="11"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Content="Сохранить" 

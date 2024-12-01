@@ -2,7 +2,7 @@ using System.ComponentModel;
 
 namespace AutomationOfTransportServices.Models;
 
-public class VehicleModel : INotifyPropertyChanged
+public class VehicleModel : INotifyPropertyChanged, ICloneable
 {
     private int id;
     private string name = null!;
@@ -49,6 +49,15 @@ public class VehicleModel : INotifyPropertyChanged
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;
+
+    public object Clone()
+    {
+        return new VehicleModel
+        {
+            Id = this.Id,
+            Name = this.Name
+        };
+    }
 
     protected void OnPropertyChanged(string propertyName)
     {

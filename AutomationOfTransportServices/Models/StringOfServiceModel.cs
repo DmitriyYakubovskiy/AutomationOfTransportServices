@@ -1,18 +1,17 @@
 using System.ComponentModel;
-using System.Windows;
 
 namespace AutomationOfTransportServices.Models;
 
-public class StringOfServiceModel : INotifyPropertyChanged
+public class StringOfServiceModel : INotifyPropertyChanged, ICloneable
 {
     private int id;
     private int number;
     private DateOnly date;
     private int distance;
-    private int clientId;
-    private int typeOfServiceId;
-    private int vehicleId;
-    private int driverId;
+    private int? clientId;
+    private int? typeOfServiceId;
+    private int? vehicleId;
+    private int? driverId;
     private ClientModel client;
     private TypeOfServiceModel typeOfService;
     private VehicleModel vehicle;
@@ -36,6 +35,12 @@ public class StringOfServiceModel : INotifyPropertyChanged
             number = value;
             OnPropertyChanged(nameof(Number));
         }
+    }
+
+    public string DateString
+    {
+        get => date.ToString("d.M.yyyy");
+        set { }
     }
 
     public DateOnly Date
@@ -81,7 +86,7 @@ public class StringOfServiceModel : INotifyPropertyChanged
         set { }
             
     }
-    public int ClientId
+    public int? ClientId
     {
         get => clientId;
         set
@@ -91,7 +96,7 @@ public class StringOfServiceModel : INotifyPropertyChanged
         }
     }
 
-    public int TypeOfServiceId
+    public int? TypeOfServiceId
     {
         get => typeOfServiceId;
         set
@@ -101,7 +106,7 @@ public class StringOfServiceModel : INotifyPropertyChanged
         }
     }
 
-    public int VehicleId
+    public int? VehicleId
     {
         get => vehicleId;
         set
@@ -112,7 +117,7 @@ public class StringOfServiceModel : INotifyPropertyChanged
         }
     }
 
-    public int DriverId
+    public int? DriverId
     {
         get => driverId;
         set
@@ -128,7 +133,8 @@ public class StringOfServiceModel : INotifyPropertyChanged
         set
         {
             client = value;
-            ClientId = client.Id;
+            if(value==null) ClientId = null;
+            else ClientId = client.Id;
             OnPropertyChanged(nameof(Client));
         }
     }
@@ -138,8 +144,9 @@ public class StringOfServiceModel : INotifyPropertyChanged
         get => typeOfService;
         set
         {
-            typeOfService = value;
-            TypeOfServiceId = value.Id; 
+            typeOfService = value; 
+            if (value == null) TypeOfServiceId = null;
+            else TypeOfServiceId = value.Id;
             OnPropertyChanged(nameof(TypeOfService));
         }
     }
@@ -149,8 +156,9 @@ public class StringOfServiceModel : INotifyPropertyChanged
         get => vehicle;
         set
         {
-            vehicle = value;
-            VehicleId = value.Id;
+            vehicle = value; 
+            if (value == null) VehicleId = null;
+            else VehicleId = value.Id;
             OnPropertyChanged(nameof(Vehicle));
         }
     }
@@ -160,13 +168,29 @@ public class StringOfServiceModel : INotifyPropertyChanged
         get => driver;
         set
         {
-            driver = value;
-            DriverId = value.Id;
+            driver = value; 
+            if (value == null) DriverId = null;
+            else DriverId = value.Id;
             OnPropertyChanged(nameof(Driver));
         }
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
+
+    public object Clone()
+    {
+        return new StringOfServiceModel
+        {
+            Id = this.Id,
+            Number = this.Number,
+            Date = this.Date,
+            Distance = this.Distance,
+            Driver = this.Driver,
+            Client = this.Client,
+            Vehicle= this.Vehicle,
+            TypeOfService = this.TypeOfService,
+        };
+    }
 
     protected void OnPropertyChanged(string propertyName)
     {
