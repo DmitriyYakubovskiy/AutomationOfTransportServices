@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutomationOfTransportServices.Views"
         mc:Ignorable="d"
-        Title="StringsOfServicesView" Height="550" Width="1450"    
+        Title="Услуги" Height="550" Width="1450"    
         WindowStartupLocation="CenterOwner">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -33,7 +33,7 @@
                     <DataGridTextColumn Header="Тип услуги" Binding="{Binding TypeOfService.Name}"/>
                     <DataGridTextColumn Header="Расстояние в км" Binding="{Binding Distance}"/>
                     <DataGridTextColumn Header="Код автомобиля" Binding="{Binding VehicleId}"/>
-                    <DataGridTextColumn Header="Имя автомобиля" Binding="{Binding Vehicle.Name}"/>
+                    <DataGridTextColumn Header="Автомобиль" Binding="{Binding Vehicle.Name}"/>
                     <DataGridTextColumn Header="Цена за 1 км" Binding="{Binding Vehicle.PriceOfKm}"/>
                     <DataGridTextColumn Header="Код водителя" Binding="{Binding DriverId}"/>
                     <DataGridTextColumn Header="Имя водителя" Binding="{Binding Driver.Name}"/>

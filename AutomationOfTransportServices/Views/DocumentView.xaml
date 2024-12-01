@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="DocumentView" Height="600" Width="1150"
+        Title="Документ" Height="600" Width="1150"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
@@ -39,7 +39,7 @@
                         <DataGridTextColumn Header="Тип услуги" Binding="{Binding TypeOfService.Name}"/>
                         <DataGridTextColumn Header="Расстояние в км" Binding="{Binding Distance}"/>
                         <DataGridTextColumn Header="Код автомобиля" Binding="{Binding VehicleId}"/>
-                        <DataGridTextColumn Header="Имя автомобиля" Binding="{Binding Vehicle.Name}"/>
+                        <DataGridTextColumn Header="Автомобиль" Binding="{Binding Vehicle.Name}"/>
                         <DataGridTextColumn Header="Цена за 1 км" Binding="{Binding Vehicle.PriceOfKm}"/>
                         <DataGridTextColumn Header="Код водителя" Binding="{Binding DriverId}"/>
                         <DataGridTextColumn Header="Имя водителя" Binding="{Binding Driver.Name}"/>

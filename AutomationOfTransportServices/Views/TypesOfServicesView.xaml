@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutomationOfTransportServices.Views"
         mc:Ignorable="d"
-        Title="TypesOfServicesView" Height="450" Width="400"
+        Title="Типы услуг" Height="450" Width="400"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
@@ -30,7 +30,7 @@
       IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
-                    <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="150"/>
+                    <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="150"/>
                     <DataGridTemplateColumn Header="Действия" Width="150">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>

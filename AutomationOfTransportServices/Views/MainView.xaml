@@ -24,7 +24,7 @@
         <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Таблицы" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
             <Button Content="Клиенты" Width="200" Margin="5" Command="{Binding OpenClientsCommand}"  />
-            <Button Content="Машины" Width="200" Margin="5" Command="{Binding OpenVehiclesCommand}" />
+            <Button Content="Автомобили" Width="200" Margin="5" Command="{Binding OpenVehiclesCommand}" />
             <Button Content="Водители" Width="200" Margin="5" Command="{Binding OpenDriversCommand}" />
             <Button Content="Услуги" Width="200" Margin="5" Command="{Binding OpenStringsOfServicesCommand}" />
             <Button Content="Типы Услуг" Width="200" Margin="5" Command="{Binding OpenTypesOfServicesCommand}" />
@@ -32,10 +32,10 @@
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Итоги" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center"/>
-            <Button Content="Статистика по Клиентам" Width="200" Margin="5" Command="{Binding ShowClientStatisticsCommand}" />
-            <Button Content="Статистика по Автомобилям" Width="200" Margin="5" Command="{Binding ShowVehicleStatisticsCommand}" />
-            <Button Content="Статистика по Типам Услуг" Width="200" Margin="5" Command="{Binding ShowServiceTypeStatisticsCommand}" />
-            <Button Content="Статистика по Водителям" Width="200" Margin="5 5 5 35" Command="{Binding ShowDriverStatisticsCommand}" />
+            <Button Content="Статистика по клиентам" Width="200" Margin="5" Command="{Binding ShowClientStatisticsCommand}" />
+            <Button Content="Статистика по автомобилям" Width="200" Margin="5" Command="{Binding ShowVehicleStatisticsCommand}" />
+            <Button Content="Статистика по типам услуг" Width="200" Margin="5" Command="{Binding ShowServiceTypeStatisticsCommand}" />
+            <Button Content="Статистика по водителям" Width="200" Margin="5 5 5 35" Command="{Binding ShowDriverStatisticsCommand}" />
         </StackPanel>
     </Grid>
 </Window>

@@ -33,7 +33,6 @@ public class AddEditVehicleViewModel : INotifyPropertyChanged
         thisWindow = window;
         Vehicle = existingVehicle ?? new VehicleModel();
         this.vehicleService = vehicleService;
-
         SaveCommand = new DelegateCommand(_ => Save());
         CancelCommand = new DelegateCommand(_ => Cancel());
     }

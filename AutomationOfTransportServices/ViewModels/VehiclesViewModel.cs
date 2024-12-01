@@ -126,7 +126,7 @@ public class VehiclesViewModel: INotifyPropertyChanged
     private void DeleteVehicle(VehicleModel model)
     {
         if (model == null) return;
-        if(MessageBox.Show("Вы уверены, что хотите удалить эту машину?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) vehicles.Delete(model.Id);
+        if(MessageBox.Show("Вы уверены, что хотите удалить этот автомобиль?", "Подтверждение удаления", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes) vehicles.Delete(model.Id);
     }
 
     protected void OnPropertyChanged(string propertyName)

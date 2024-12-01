@@ -55,7 +55,8 @@ public class VehicleModel : INotifyPropertyChanged, ICloneable
         return new VehicleModel
         {
             Id = this.Id,
-            Name = this.Name
+            Name = this.Name,
+            priceOfKm= this.priceOfKm,
         };
     }
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutomationOfTransportServices.Views"
         mc:Ignorable="d"
-        Title="ServiceTypeStatisticsView" Height="450" Width="550"
+        Title="Статистика типов услуг" Height="450" Width="550"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <TextBlock Text="Статистика по Типам Услуг" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="10"/>
@@ -16,10 +16,10 @@
                       CanUserAddRows="False"
                       IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Код Типа Услуги" Binding="{Binding Id}" />
-                    <DataGridTextColumn Header="Название Типа Услуги" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Количество Услуг" Binding="{Binding NumberOfServices}" />
-                    <DataGridTextColumn Header="Общая Стоимость Услуг" Binding="{Binding TotalCost}" />
+                    <DataGridTextColumn Header="Код типа услуги" Binding="{Binding Id}" />
+                    <DataGridTextColumn Header="Название типа услуги" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Количество услуг" Binding="{Binding NumberOfServices}" />
+                    <DataGridTextColumn Header="Общая стоимость услуг" Binding="{Binding TotalCost}" />
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
