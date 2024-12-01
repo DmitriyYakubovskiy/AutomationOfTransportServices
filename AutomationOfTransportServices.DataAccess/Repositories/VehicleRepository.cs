@@ -39,7 +39,8 @@ public class VehicleRepository : IVehicleRepository
 
     public VehicleEntity GetById(int id)
     {
-        return dbContext.Vehicles.Include(x => x.Strings).ThenInclude(d => d.Driver)
+        return dbContext.Vehicles
+            .Include(x => x.Strings).ThenInclude(d => d.Driver)
             .Include(x => x.Strings).ThenInclude(c => c.Client)
             .Include(x => x.Strings).ThenInclude(t => t.TypeOfService).FirstOrDefault(x => x.Id == id)!;
     }

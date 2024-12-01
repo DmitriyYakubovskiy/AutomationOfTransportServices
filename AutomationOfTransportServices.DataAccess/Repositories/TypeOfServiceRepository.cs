@@ -1,5 +1,6 @@
 using AutomationOfTransportServices.DataAccess.Contexts;
 using AutomationOfTransportServices.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutomationOfTransportServices.DataAccess.Repositories;
 
@@ -38,7 +39,11 @@ public class TypeOfServiceRepository : ITypeOfServiceRepository
 
     public TypeOfServiceEntity GetById(int id)
     {
-        return dbContext.TypesOfServices.FirstOrDefault(x => x.Id == id)!;
+        return dbContext.TypesOfServices
+            .Include(x => x.Strings).ThenInclude(d => d.Driver)
+            .Include(x => x.Strings).ThenInclude(v => v.Vehicle)
+            .Include(x => x.Strings).ThenInclude(t => t.Client)
+            .FirstOrDefault(x => x.Id == id)!;
     }
 
     public void Update(TypeOfServiceEntity entity)

@@ -39,7 +39,8 @@ public class DriverRepository : IDriverRepository
 
     public DriverEntity GetById(int id)
     {
-        return dbContext.Drivers.Include(x => x.Strings).ThenInclude(c => c.Client)
+        return dbContext.Drivers
+            .Include(x => x.Strings).ThenInclude(c => c.Client)
             .Include(x => x.Strings).ThenInclude(v => v.Vehicle)
             .Include(x => x.Strings).ThenInclude(t => t.TypeOfService).FirstOrDefault(x => x.Id == id)!;
     }

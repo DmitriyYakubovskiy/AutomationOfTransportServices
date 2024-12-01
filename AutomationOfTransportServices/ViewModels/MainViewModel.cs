@@ -13,6 +13,10 @@ public class MainViewModel
     private Command openStringsOfServicesCommand;
     private Command openTypesOfServicesCommand;
     private Command openVehiclesCommand;
+    private Command showClientStatisticsCommand;
+    private Command showVehicleStatisticsCommand;
+    private Command showServiceTypeStatisticsCommand;
+    private Command showDriverStatisticsCommand;
 
     private Window thisWindow;
     private IClientService clientService;
@@ -26,6 +30,10 @@ public class MainViewModel
     public ICommand OpenStringsOfServicesCommand => openStringsOfServicesCommand;
     public ICommand OpenTypesOfServicesCommand => openTypesOfServicesCommand;
     public ICommand OpenVehiclesCommand => openVehiclesCommand;
+    public ICommand ShowClientStatisticsCommand => showClientStatisticsCommand;
+    public ICommand ShowVehicleStatisticsCommand => showVehicleStatisticsCommand;
+    public ICommand ShowServiceTypeStatisticsCommand => showServiceTypeStatisticsCommand;
+    public ICommand ShowDriverStatisticsCommand => showDriverStatisticsCommand;
 
     public MainViewModel(Window window, IClientService clientService, IDriverService driverService,
                          IServiceStringService serviceService, IServiceTypeService typeOfServiceService,
@@ -43,6 +51,10 @@ public class MainViewModel
         openStringsOfServicesCommand = new DelegateCommand(_ => OpenStringsOfServices());
         openTypesOfServicesCommand = new DelegateCommand(_ => OpenTypesOfServices());
         openVehiclesCommand = new DelegateCommand(_ => OpenVehicles());
+        showClientStatisticsCommand = new DelegateCommand(_ => ShowClientStatistics());
+        showVehicleStatisticsCommand = new DelegateCommand(_ => ShowVehicleStatistics());
+        showServiceTypeStatisticsCommand = new DelegateCommand(_ => ShowServiceTypeStatistics());
+        showDriverStatisticsCommand = new DelegateCommand(_ => ShowDriverStatistics());
     }
 
     private void OpenClients()
@@ -79,4 +91,33 @@ public class MainViewModel
         window.DataContext = new VehiclesViewModel(window, vehicleService);
         window.Show();
     }
+
+    private void ShowClientStatistics()
+    {
+        var statisticsWindow = new ClientStatisticsView(thisWindow);
+        statisticsWindow.DataContext = new ClientStatisticsViewModel(statisticsWindow, clientService); 
+        statisticsWindow.Show();
+    }
+
+    private void ShowVehicleStatistics()
+    {
+        var statisticsWindow = new VehicleStatisticsView(thisWindow);
+        statisticsWindow.DataContext = new VehicleStatisticsViewModel(statisticsWindow, vehicleService);
+        statisticsWindow.Show();
+    }
+
+    private void ShowServiceTypeStatistics()
+    {
+        var statisticsWindow = new ServiceTypeStatisticsView(thisWindow);
+        statisticsWindow.DataContext = new ServiceTypeStatisticsViewModel(statisticsWindow, typeOfServiceService);
+        statisticsWindow.Show();
+    }
+
+    private void ShowDriverStatistics()
+    {
+        var statisticsWindow = new DriverStatisticsView(thisWindow);
+        statisticsWindow.DataContext = new DriverStatisticsViewModel(statisticsWindow, driverService);
+        statisticsWindow.Show();
+    }
 }
+
