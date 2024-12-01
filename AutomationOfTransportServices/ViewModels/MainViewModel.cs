@@ -17,9 +17,9 @@ public class MainViewModel
     private Window thisWindow;
     private IClientService clientService;
     private IDriverService driverService;
-    private IServiceStringService serviceService; // Предполагается, что у вас есть интерфейс для услуг
-    private IServiceTypeService typeOfServiceService; // Интерфейс для типов услуг
-    private IVehicleService vehicleService; // Интерфейс для транспортных средств
+    private IServiceStringService stringService;
+    private IServiceTypeService typeOfServiceService;
+    private IVehicleService vehicleService;
 
     public ICommand OpenClientsCommand => openClientsCommand;
     public ICommand OpenDriversCommand => openDriversCommand;
@@ -34,7 +34,7 @@ public class MainViewModel
         this.thisWindow = window;
         this.clientService = clientService;
         this.driverService = driverService;
-        this.serviceService = serviceService;
+        this.stringService = serviceService;
         this.typeOfServiceService = typeOfServiceService;
         this.vehicleService = vehicleService;
 
@@ -48,7 +48,7 @@ public class MainViewModel
     private void OpenClients()
     {
         var window = new ClientsView(thisWindow);
-        window.DataContext = new ClientsViewModel(window, clientService);
+        window.DataContext = new ClientsViewModel(window, clientService, stringService, driverService, typeOfServiceService, vehicleService);
         window.ShowDialog();
     }
 
@@ -62,7 +62,7 @@ public class MainViewModel
     private void OpenStringsOfServices()
     {
         var window = new StringsOfServicesView(thisWindow);
-        window.DataContext = new StringsOfServicesViewModel(window, serviceService);
+        window.DataContext = new StringsOfServicesViewModel(window, stringService);
         window.Show();
     }
 

@@ -5,9 +5,9 @@ namespace AutomationOfTransportServices.Views;
 /// <summary>
 /// Логика взаимодействия для ClientDetailsView.xaml
 /// </summary>
-public partial class ClientDetailsView : Window
+public partial class AddEditClientView : Window
 {
-    public ClientDetailsView(Window owner)
+    public AddEditClientView(Window owner)
     {
         InitializeComponent();
         Owner=owner;

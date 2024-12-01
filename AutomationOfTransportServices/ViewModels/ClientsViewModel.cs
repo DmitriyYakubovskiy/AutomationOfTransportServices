@@ -18,13 +18,22 @@ public class ClientsViewModel : INotifyPropertyChanged
     private Command editClientCommand;
     private Command deleteClientCommand;
     private Command searchClientCommand;
+    private Command showDocumentCommand;
+    private Command refreshClientsCommand;
     private Window thisWindow;
+    private IClientService clientService;
+    private IServiceStringService stringService;
+    private IDriverService driverService;
+    private IServiceTypeService typeService;
+    private IVehicleService vehicleService;
     private string searchText;
 
     public ICommand AddClientCommand => addClientCommand;
     public ICommand EditClientCommand => editClientCommand;
     public ICommand DeleteClientCommand => deleteClientCommand;
     public ICommand SearchClientCommand => searchClientCommand;
+    public ICommand ShowDocumentCommand => showDocumentCommand;
+    public ICommand RefreshClientsCommand => refreshClientsCommand; 
 
     public ObservableCollection<ClientModel> Clients => clients.Clients;
 
@@ -40,8 +49,13 @@ public class ClientsViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    public ClientsViewModel(Window window, IClientService clientService)
+    public ClientsViewModel(Window window, IClientService clientService, IServiceStringService stringService, IDriverService driverService, IServiceTypeService typeService, IVehicleService vehicleService)
     {
+        this.clientService = clientService;
+        this.stringService = stringService;
+        this.driverService = driverService;
+        this.typeService = typeService;
+        this.vehicleService = vehicleService;
         clients = new ClientObservableCollection(clientService);
         thisWindow = window;
 
@@ -56,7 +70,9 @@ public class ClientsViewModel : INotifyPropertyChanged
         addClientCommand = new DelegateCommand(_ => AddClient());
         editClientCommand = new GenericCommand<ClientModel>(client => EditClient(client), client => client != null);
         deleteClientCommand = new GenericCommand<ClientModel>(client => DeleteClient(client), client => client != null);
-        searchClientCommand = new DelegateCommand(_ => SearchClients()); 
+        showDocumentCommand = new GenericCommand<ClientModel>(client => ShowDocument(client), client => client != null);
+        searchClientCommand = new DelegateCommand(_ => SearchClients());
+        refreshClientsCommand = new DelegateCommand(_ => Refresh());
     }
 
     private void SearchClients()
@@ -64,10 +80,15 @@ public class ClientsViewModel : INotifyPropertyChanged
         clients.Filter(searchText);
     }
 
+    private void Refresh()
+    {
+        clients.Refresh();
+    }
+
     private void AddClient()
     {
-        var window = new ClientDetailsView(thisWindow);
-        var clientDetailsViewModel = new ClientDetailsViewModel(window);
+        var window = new AddEditClientView(thisWindow);
+        var clientDetailsViewModel = new AddEditClientViewModel(window);
         window.DataContext = clientDetailsViewModel;
 
         if (window.ShowDialog() == true)
@@ -84,8 +105,8 @@ public class ClientsViewModel : INotifyPropertyChanged
     {
         if (client != null)
         {
-            var window = new ClientDetailsView(thisWindow);
-            var clientDetailsViewModel = new ClientDetailsViewModel(window, client.Clone() as ClientModel);
+            var window = new AddEditClientView(thisWindow);
+            var clientDetailsViewModel = new AddEditClientViewModel(window, client.Clone() as ClientModel);
             window.DataContext = clientDetailsViewModel;
 
             if (window.ShowDialog() == true)
@@ -103,6 +124,14 @@ public class ClientsViewModel : INotifyPropertyChanged
     {
         if (client == null) return;
         clients.Delete(client.Id);
+    }
+
+    private void ShowDocument(ClientModel client)
+    {
+        Window window = new DocumentView(thisWindow);
+        DocumentViewModel viewModel = new DocumentViewModel(window, clientService, stringService, driverService, typeService, vehicleService, client.Id);
+        window.DataContext = viewModel;
+        window.ShowDialog();
     }
 
     protected void OnPropertyChanged(string propertyName)

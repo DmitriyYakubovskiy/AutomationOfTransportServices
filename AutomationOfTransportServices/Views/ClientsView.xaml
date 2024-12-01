@@ -20,37 +20,47 @@
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" Margin="10">
-            <ListView ItemsSource="{Binding Clients}" 
-              Name="ClientsListView">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Header="ФИО" Width="200" DisplayMemberBinding="{Binding Name}" />
-                        <GridViewColumn Header="Телефон" Width="100" DisplayMemberBinding="{Binding NumberOfTelephone}" />
-                        <GridViewColumn Header="Действия" Width="150">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button Content="Изменить" 
-                                        Command="{Binding DataContext.EditClientCommand, RelativeSource={RelativeSource AncestorType=ListView}}" 
-                                        CommandParameter="{Binding}" 
-                                        Margin="5,0,0,0"/>
-                                        <Button Content="Удалить" 
-                                        Command="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource AncestorType=ListView}}" 
-                                        CommandParameter="{Binding}" 
-                                        Margin="5,0,0,0"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <DataGrid ItemsSource="{Binding Clients}" 
+              AutoGenerateColumns="False" 
+              Name="ClientsDataGrid" 
+              CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                    <DataGridTextColumn Header="ФИО" Binding="{Binding Name}" Width="150"/>
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding NumberOfTelephone}" Width="100"/>
+                    <DataGridTemplateColumn Header="Действия" Width="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="Изменить" 
+                                    Command="{Binding DataContext.EditClientCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                    CommandParameter="{Binding}" 
+                                    Margin="5,0,0,0"/>
+                                    <Button Content="Удалить" 
+                                    Command="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                    CommandParameter="{Binding}" 
+                                    Margin="5,0,0,0"/>
+                                    <Button Content="Документ" 
+                                    Command="{Binding DataContext.ShowDocumentCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" 
+                                    CommandParameter="{Binding}" 
+                                    Margin="5,0,0,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
         </ScrollViewer>
 
-        <Button Grid.Row="2" Content="Добавить" 
-                Command="{Binding AddClientCommand}" 
-                Width="100" 
-                Margin="10" HorizontalAlignment="Left"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Left" Margin="10">
+            <Button Content="Добавить" 
+                    Command="{Binding AddClientCommand}" 
+                    Width="100"/>
+
+            <Button Content="Обновить" 
+                    Command="{Binding RefreshClientsCommand}"
+                Width="100"
+                    Margin="5,0,0,0"/>
+        </StackPanel>
     </Grid>
 </Window>

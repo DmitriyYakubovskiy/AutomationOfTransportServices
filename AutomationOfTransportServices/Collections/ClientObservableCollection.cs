@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
-using System.Windows;
 
 namespace AutomationOfTransportServices.Collections;
 
@@ -42,6 +41,11 @@ public class ClientObservableCollection : INotifyCollectionChanged
     public void Delete(int id)
     {
         clientService.Delete(id); 
+        Init();
+    }
+
+    public void Refresh()
+    {
         Init();
     }
 

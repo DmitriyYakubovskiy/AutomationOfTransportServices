@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace AutomationOfTransportServices.ViewModels;
 
-public class ClientDetailsViewModel : INotifyPropertyChanged
+public class AddEditClientViewModel : INotifyPropertyChanged
 {
     private ClientModel client;
     private Window thisWindow;
@@ -25,7 +25,7 @@ public class ClientDetailsViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    public ClientDetailsViewModel(Window window, ClientModel existingClient = null)
+    public AddEditClientViewModel(Window window, ClientModel existingClient = null!)
     {
         thisWindow= window;
         Client = existingClient ?? new ClientModel();

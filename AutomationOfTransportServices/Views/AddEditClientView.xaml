@@ -1,4 +1,4 @@
-﻿<Window x:Class="AutomationOfTransportServices.Views.ClientDetailsView"
+﻿<Window x:Class="AutomationOfTransportServices.Views.AddEditClientView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Client Details" Height="180" Width="400"

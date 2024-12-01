@@ -1,5 +1,6 @@
 using AutomationOfTransportServices.DataAccess.Contexts;
 using AutomationOfTransportServices.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutomationOfTransportServices.DataAccess.Repositories;
 
@@ -34,7 +35,11 @@ public class ClientRepository : IClientRepository
 
     public ClientEntity GetById(int id)
     {
-        return dbContext.Clients.FirstOrDefault(x => x.Id == id)!;
+        return dbContext.Clients
+            .Include(x=>x.Strings).ThenInclude(d=>d.Driver)
+            .Include(x=>x.Strings).ThenInclude(v=>v.Vehicle)
+            .Include(x=>x.Strings).ThenInclude(t=>t.TypeOfService)
+            .FirstOrDefault(x => x.Id == id)!;
     }
 
     public void Update(ClientEntity entity)

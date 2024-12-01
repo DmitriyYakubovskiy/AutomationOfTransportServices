@@ -1,5 +1,6 @@
 ﻿using AutomationOfTransportServices.DataAccess.Contexts;
 using AutomationOfTransportServices.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutomationOfTransportServices.DataAccess.Repositories;
 
@@ -33,7 +34,9 @@ public class VehicleRepository : IVehicleRepository
 
     public VehicleEntity GetById(int id)
     {
-        return dbContext.Vehicles.FirstOrDefault(x => x.Id == id)!;
+        return dbContext.Vehicles.Include(x => x.Strings).ThenInclude(d => d.Driver)
+            .Include(x => x.Strings).ThenInclude(c => c.Client)
+            .Include(x => x.Strings).ThenInclude(t => t.TypeOfService).FirstOrDefault(x => x.Id == id)!;
     }
 
     public void Update(VehicleEntity entity)

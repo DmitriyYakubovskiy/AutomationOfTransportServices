@@ -10,8 +10,6 @@ namespace AutomationOfTransportServices;
 public partial class App : Application
 {
     private readonly MainView mainWindow;
-    private readonly TransportServicesDbContext dbContext;
-    private readonly IMapper mapper;
     private readonly IClientService clientService;
     private readonly IDriverService driverService;
     private readonly IServiceStringService serviceService;
@@ -19,17 +17,13 @@ public partial class App : Application
     private readonly IVehicleService vehicleService;
 
     public App(MainView mainWindow,
-               TransportServicesDbContext dbContext,
-               IMapper mapper,
                IClientService clientService,
                IDriverService driverService,
                IServiceStringService serviceService,
                IServiceTypeService typeOfServiceService,
                IVehicleService vehicleService)
     {
-        this.mapper = mapper;
         this.mainWindow = mainWindow;
-        this.dbContext = dbContext;
         this.clientService = clientService;
         this.driverService = driverService;
         this.serviceService = serviceService;
